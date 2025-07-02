@@ -1,0 +1,84 @@
+{
+  "name": "receive email from both mail and telegram automation",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -700,
+        -20
+      ],
+      "id": "fd4e2fd1-aa41-4a71-9152-e2f0ccad0c2d",
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "prPKnZRmD8igUF1b",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "1852026912  ",
+        "text": "=📥 New Mail Received!\n\n👤 From: {{$json[\"From\"]}}\n\n📬 To: {{$json[\"To\"]}}\n\n📝 Subject: {{$json[\"Subject\"]}}\n\n\n🧾 Snippet: {{$json[\"snippet\"]}}\n",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -340,
+        -20
+      ],
+      "id": "0ed28a4a-df4d-4617-9e4d-2b6681db131d",
+      "name": "Telegram",
+      "webhookId": "060e3509-27e4-4140-b2de-55da6c96f68a",
+      "credentials": {
+        "telegramApi": {
+          "id": "PtXqCJgtgxQhePWj",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "28e6dd3c-42b5-45d2-a28e-561c8ccffed8",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c52008a8896d87a0a101a4c72ad76598f1f88a03ed61894546d0644ce6bf9c59"
+  },
+  "id": "siFT4qWvL8vUxiQ4",
+  "tags": []
+}
